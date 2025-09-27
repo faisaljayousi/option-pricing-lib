@@ -117,4 +117,3 @@ def generate_gbm_paths(
         return np.exp(logS), t
 
     return np.exp(logS)
-

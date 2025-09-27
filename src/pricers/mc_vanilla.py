@@ -96,4 +96,3 @@ def price_european_vanilla_mc(
     price = samples.mean()
     stderr = samples.std(ddof=1) / np.sqrt(len(samples))
     return (price, stderr, S) if return_paths else (price, stderr)
-

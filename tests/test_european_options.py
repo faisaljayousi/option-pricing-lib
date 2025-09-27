@@ -69,4 +69,3 @@ def test_mc_price_matches_bs_within_3sigma():
         s0, k, r, q, sigma, T, steps=252, n_paths=20000, seed=123
     )
     assert abs(mc - bs) <= 3 * se
-

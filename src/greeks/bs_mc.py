@@ -143,7 +143,7 @@ def delta_call_bump(
         n_paths=n_paths,
         call=True,
         antithetic=antithetic,
-        seed=seed,  
+        seed=seed,
     )
 
     # Down bump
@@ -158,7 +158,7 @@ def delta_call_bump(
         n_paths=n_paths,
         call=True,
         antithetic=antithetic,
-        seed=seed, 
+        seed=seed,
     )
 
     delta = (mc_up - mc_down) / (2 * h)
@@ -242,4 +242,3 @@ def delta_put_bump(
     delta = (mc_up - mc_down) / (2 * h)
     se = np.sqrt(2) * (1 / (2 * h)) * (1 / np.sqrt(n_paths))
     return delta, se
-

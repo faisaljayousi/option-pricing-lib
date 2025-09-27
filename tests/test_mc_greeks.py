@@ -1,12 +1,8 @@
 import numpy as np
 import pytest
 
-from greeks.bs_mc import (
-    delta_call_bump,
-    delta_call_pathwise,
-    delta_put_bump,
-    delta_put_pathwise,
-)
+from greeks.bs_mc import (delta_call_bump, delta_call_pathwise, delta_put_bump,
+                          delta_put_pathwise)
 from models.gbm import generate_gbm_paths, make_rng
 from pricers.bs_vanilla import call_greeks, put_greeks
 from pricers.mc_vanilla import price_european_vanilla_mc
@@ -77,4 +73,3 @@ def test_bump_delta_matches_bs(callput):
         delta_bs = put_greeks(s0, k, r, q, sigma, T)["delta"]
 
     assert abs(delta_bump - delta_bs) <= 3 * se
-
