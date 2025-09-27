@@ -35,8 +35,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = PROJECT_ROOT / "experiments" / "results"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-DELTA_TABLE_TEX      = OUT_DIR / "delta_table.tex"
-DELTA_CONV_PNG       = OUT_DIR / "delta_convergence.png"
+DELTA_TABLE_TEX = OUT_DIR / "delta_table.tex"
+DELTA_CONV_PNG = OUT_DIR / "delta_convergence.png"
 DELTA_COMPARISON_TEX = OUT_DIR / "delta_comparison.tex"
 
 
@@ -150,4 +150,3 @@ if __name__ == "__main__":
     run_convergence()
     run_comparison()
     run_robustness()
-

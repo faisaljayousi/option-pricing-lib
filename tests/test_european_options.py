@@ -6,7 +6,6 @@ from pytest import approx
 
 from greeks.bs_mc import delta_call_pathwise
 from pricers.bs_vanilla import call_greeks, call_price, put_greeks, put_price
-from pricers.mc_digitals import price_binary_mc
 from pricers.mc_vanilla import price_european_vanilla_mc
 
 
