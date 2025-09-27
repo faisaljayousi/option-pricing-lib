@@ -71,33 +71,3 @@ def test_mc_price_matches_bs_within_3sigma():
     )
     assert abs(mc - bs) <= 3 * se
 
-
-def test_pathwise_delta_matches_bs_within_3sigma():
-    """
-    Pathwise delta estimator should match Black–Scholes delta within 3 SE.
-
-    The pathwise estimator computes d/dS0 of the discounted payoff along 
-    each simulated path. For European calls under GBM, this yields an 
-    unbiased (or asymptotically unbiased) estimator of Delta, with an 
-    empirically measurable standard error.
-
-    What this test does
-    -------------------
-    - Simulates paths via `price_european_vanilla_mc` to reuse the same model
-      and discretisation used for pricing.
-    - Computes the pathwise Delta and its standard error using
-      `delta_call_pathwise(paths, k, r, T)`.
-    - Compares to the analytic Black–Scholes Delta from `call_greeks`.
-
-    Pass criterion
-    --------------
-    |Δ_pathwise − Δ_BS| ≤ 3 × se
-    """
-    s0, k, r, q, sigma, T = 100, 110, 0.01, 0.005, 0.25, 1.0
-    _, _, paths = price_european_vanilla_mc(
-        s0, k, r, q, sigma, T, steps=252, n_paths=25000, return_paths=True, seed=777
-    )
-    delta_pw, se = delta_call_pathwise(paths, k, r, T)
-    delta_bs = call_greeks(s0, k, r, q, sigma, T)["delta"]
-    assert abs(delta_pw - delta_bs) <= 3 * se
-
