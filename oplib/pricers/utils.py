@@ -45,7 +45,9 @@ def _d1_d2(
     if T <= 0.0:
         raise ValueError("T must be > 0 for _d1_d2; handle T<=0 in caller.")
     if sigma <= 0.0:
-        raise ValueError("sigma must be > 0 for _d1_d2; handle sigma<=0 in caller.")
+        raise ValueError(
+            "sigma must be > 0 for _d1_d2; handle sigma<=0 in caller."
+        )
 
     vol_sqrtT = sigma * np.sqrt(T)
     d1 = (np.log(s / k) + (r - q + 0.5 * sigma * sigma) * T) / vol_sqrtT

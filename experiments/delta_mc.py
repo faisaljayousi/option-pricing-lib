@@ -1,21 +1,21 @@
-""" 
-Monte Carlo convergence demo for European Greeks (Delta). 
+"""
+Monte Carlo convergence demo for European Greeks (Delta).
 
-Goal 
----- 
-Estimate a European call price under GBM via Monte Carlo (MC) for increasing numbers of paths and compare against the closed-form Black–Scholes (BS) price. 
+Goal
+----
+Estimate a European call price under GBM via Monte Carlo (MC) for increasing numbers of paths and compare against the closed-form Black–Scholes (BS) price.
 
 
-What it shows 
-------------- 
-- MC estimates approach the BS price as N grows. 
-- The ±2·SE error band shrinks at the canonical O(1/sqrt(N)) rate. 
-- Reproducible results via a fixed seed. 
+What it shows
+-------------
+- MC estimates approach the BS price as N grows.
+- The ±2·SE error band shrinks at the canonical O(1/sqrt(N)) rate.
+- Reproducible results via a fixed seed.
 
-Outputs 
-------- 
-- Interactive plot (unless --no-show) and optional PNG (--save). 
-- Optional CSV with N, MC estimate, SE, and absolute error (--csv). 
+Outputs
+-------
+- Interactive plot (unless --no-show) and optional PNG (--save).
+- Optional CSV with N, MC estimate, SE, and absolute error (--csv).
 """
 
 from __future__ import annotations
@@ -23,11 +23,9 @@ from __future__ import annotations
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
-
 from greeks.bs_mc import delta_call_bump, delta_call_pathwise
-from pricers.bs_vanilla import call_greeks, call_price
+from pricers.bs_vanilla import call_greeks
 from pricers.mc_vanilla import price_european_vanilla_mc
 
 # ---------- Robust, OS-agnostic paths ----------
@@ -60,7 +58,9 @@ def run_table() -> pd.DataFrame:
             return_paths=True,
         )
         delta_pw, se = delta_call_pathwise(paths, K, r, T)
-        rows.append(dict(K=K, T=T, Delta_BS=bs_delta, Delta_MC=delta_pw, SE=se))
+        rows.append(
+            dict(K=K, T=T, Delta_BS=bs_delta, Delta_MC=delta_pw, SE=se)
+        )
 
     df = pd.DataFrame(rows)
     print(df)
@@ -76,16 +76,32 @@ def run_convergence() -> None:
 
     for N in Ns:
         _, _, paths = price_european_vanilla_mc(
-            s0, k, r, q, sigma, T, steps=252, n_paths=N, seed=123, return_paths=True
+            s0,
+            k,
+            r,
+            q,
+            sigma,
+            T,
+            steps=252,
+            n_paths=N,
+            seed=123,
+            return_paths=True,
         )
         delta_pw, se = delta_call_pathwise(paths, k, r, T)
         err = abs(delta_pw - bs_delta)
         errors.append(err)
-        print(f"N={N:6d}, Delta_MC={delta_pw:.4f}, BS={bs_delta:.4f}, |err|={err:.5f}")
+        print(
+            f"N={N:6d}, Delta_MC={delta_pw:.4f}, BS={bs_delta:.4f}, |err|={err:.5f}"
+        )
 
     plt.figure()
     plt.loglog(Ns, errors, "o-", label="MC abs error")
-    plt.loglog(Ns, [errors[0] * (Ns[0] / N) ** 0.5 for N in Ns], "--", label="N^{-1/2}")
+    plt.loglog(
+        Ns,
+        [errors[0] * (Ns[0] / N) ** 0.5 for N in Ns],
+        "--",
+        label="N^{-1/2}",
+    )
     plt.xlabel("Number of paths N")
     plt.ylabel("Absolute error")
     plt.legend()
@@ -102,7 +118,16 @@ def run_comparison() -> pd.DataFrame:
 
     for N in Ns:
         _, _, paths = price_european_vanilla_mc(
-            s0, k, r, q, sigma, T, steps=252, n_paths=N, seed=123, return_paths=True
+            s0,
+            k,
+            r,
+            q,
+            sigma,
+            T,
+            steps=252,
+            n_paths=N,
+            seed=123,
+            return_paths=True,
         )
         delta_pw, se_pw = delta_call_pathwise(paths, k, r, T)
         delta_bump, se_bump = delta_call_bump(
@@ -142,7 +167,9 @@ def run_robustness() -> None:
             return_paths=True,
         )
         delta_pw, se = delta_call_pathwise(paths, k, r, T)
-        print(f"steps={steps}, Delta_MC={delta_pw:.4f} ± {se:.4f}, BS={bs_delta:.4f}")
+        print(
+            f"steps={steps}, Delta_MC={delta_pw:.4f} ± {se:.4f}, BS={bs_delta:.4f}"
+        )
 
 
 if __name__ == "__main__":

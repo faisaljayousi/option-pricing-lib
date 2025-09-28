@@ -1,2 +1,5 @@
 __pycache__/
 experiments/results/
+build/
+.pytest_cache/
+oplib/oplib.egg-info

@@ -1,12 +1,8 @@
-import os
-import sys
-
 import numpy as np
 
-from pricers.bs_digital import digital_call_price, digital_put_price
-from pricers.bs_vanilla import call_price, put_price
-from pricers.mc_digital import price_digital_mc
-from pricers.mc_vanilla import price_european_vanilla_mc
+from oplib.pricers.bs_digital import digital_call_price, digital_put_price
+from oplib.pricers.bs_vanilla import call_price
+from oplib.pricers.mc_digital import price_digital_mc
 
 
 def test_digital_put_vs_call_relation():

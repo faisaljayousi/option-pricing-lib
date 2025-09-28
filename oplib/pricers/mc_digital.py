@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import numpy as np
-
 from models.gbm import generate_gbm_paths, make_rng
 
 

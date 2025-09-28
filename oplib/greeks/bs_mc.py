@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import numpy as np
-
 from pricers.mc_vanilla import price_european_vanilla_mc
 
 
@@ -9,7 +8,7 @@ def delta_call_pathwise(S_paths: np.ndarray, K: float, r: float, T: float):
     """
     Pathwise estimator of Delta (∂V/∂S0) for a European call option under GBM.
 
-    Implements the pathwise differentiation method: for payoff 
+    Implements the pathwise differentiation method: for payoff
         C = e^{-rT} max(S_T − K, 0),
     the pathwise derivative is
         Δ = e^{-rT} * 1_{S_T > K} * (S_T / S0),
@@ -129,7 +128,7 @@ def delta_call_bump(
         Estimated Delta and its standard error (from finite difference).
     """
     if seed is None:
-        seed = np.random.randint(0, 2 ** 32 - 1)
+        seed = np.random.randint(0, 2**32 - 1)
 
     # Up bump
     mc_up, _ = price_european_vanilla_mc(
@@ -209,7 +208,7 @@ def delta_put_bump(
         more principled paired-path variance estimate).
     """
     if seed is None:
-        seed = np.random.randint(0, 2 ** 32 - 1)
+        seed = np.random.randint(0, 2**32 - 1)
 
     mc_up, _ = price_european_vanilla_mc(
         s0 + h,

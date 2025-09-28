@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import numpy as np
-
 from models.gbm import generate_gbm_paths, make_rng
 
 
@@ -73,7 +72,7 @@ def price_european_vanilla_mc(
         independence of samples and large-sample normality.
     paths : (Optional) ndarray, shape (n_effective_paths, steps + 1)
         Simulated price paths including S_0 in the first column and S_T in the
-        last. 
+        last.
     """
     # Reproducible RNG for the whole path generation & payoff evaluation
     rng = make_rng(seed)

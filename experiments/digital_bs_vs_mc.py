@@ -4,7 +4,6 @@ import os
 
 import numpy as np
 import pandas as pd
-
 from models.gbm import generate_gbm_paths, make_rng
 from pricers.bs_digitals import digital_call_price, digital_put_price
 
@@ -116,10 +115,12 @@ def main():
     # Compose LaTeX with ±3σ columns
     df_tex = df.copy()
     df_tex["MC_DigCall $(\\pm3\\sigma)$"] = df_tex.apply(
-        lambda r: f"{r['MC_DigitalCall']:.4f} $\\pm$ {3*r['SE_Call']:.4f}", axis=1
+        lambda r: f"{r['MC_DigitalCall']:.4f} $\\pm$ {3*r['SE_Call']:.4f}",
+        axis=1,
     )
     df_tex["MC_DigPut $(\\pm3\\sigma)$"] = df_tex.apply(
-        lambda r: f"{r['MC_DigitalPut']:.4f} $\\pm$ {3*r['SE_Put']:.4f}", axis=1
+        lambda r: f"{r['MC_DigitalPut']:.4f} $\\pm$ {3*r['SE_Put']:.4f}",
+        axis=1,
     )
     cols = [
         "K",
@@ -147,10 +148,12 @@ def main():
     # Quick assertions: MC within 3σ of BS; parity close in MC
     for _, rrow in df.iterrows():
         assert (
-            abs(rrow["MC_DigitalCall"] - rrow["BS_DigitalCall"]) <= 3 * rrow["SE_Call"]
+            abs(rrow["MC_DigitalCall"] - rrow["BS_DigitalCall"])
+            <= 3 * rrow["SE_Call"]
         ), "MC call outside 3σ"
         assert (
-            abs(rrow["MC_DigitalPut"] - rrow["BS_DigitalPut"]) <= 3 * rrow["SE_Put"]
+            abs(rrow["MC_DigitalPut"] - rrow["BS_DigitalPut"])
+            <= 3 * rrow["SE_Put"]
         ), "MC put outside 3σ"
         tol = 3 * rrow["SE_Call"] + 3 * rrow["SE_Put"]
 

@@ -1,11 +1,8 @@
-import os
-import sys
-
-import numpy as np
-
-from pricers.bs_geometric_asian import (geometric_asian_call_bs,
-                                        geometric_asian_put_bs)
-from pricers.bs_vanilla import call_price, put_price
+from oplib.pricers.bs_geometric_asian import (
+    geometric_asian_call_bs,
+    geometric_asian_put_bs,
+)
+from oplib.pricers.bs_vanilla import call_price, put_price
 
 
 def test_geometric_call_reduces_to_vanilla_when_m_equals_1():

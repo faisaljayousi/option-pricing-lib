@@ -1,5 +1,5 @@
 """
-BS vs MC sweep for European calls/puts 
+BS vs MC sweep for European calls/puts
 
 Generates:
   - CSV with full numeric results (+ run metadata header row)
@@ -20,9 +20,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, Tuple
 
-import numpy as np
 import pandas as pd
-
 from pricers.bs_vanilla import call_price, put_price
 from pricers.mc_vanilla import price_european_vanilla_mc
 
@@ -85,7 +83,11 @@ def metadata_row(cfg: SweepConfig) -> Dict[str, Any]:
         "meta": "run_metadata",
         "timestamp_utc": ts,
         "git_commit": commit,
-        **{f"cfg_{k}": v for k, v in asdict(cfg).items() if k not in {"outdir"}},
+        **{
+            f"cfg_{k}": v
+            for k, v in asdict(cfg).items()
+            if k not in {"outdir"}
+        },
         # keep paths separate
         "outdir": str(cfg.outdir),
     }
@@ -245,12 +247,16 @@ def parse_args(argv: Iterable[str]) -> SweepConfig:
     p = argparse.ArgumentParser(
         description="BS vs MC sweep for European options (reproducible)."
     )
-    p.add_argument("--paths", type=int, default=50_000, help="MC paths per case")
+    p.add_argument(
+        "--paths", type=int, default=50_000, help="MC paths per case"
+    )
     p.add_argument(
         "--steps-per-year", type=int, default=252, help="Time steps per year"
     )
     p.add_argument(
-        "--no-antithetic", action="store_true", help="Disable antithetic variates"
+        "--no-antithetic",
+        action="store_true",
+        help="Disable antithetic variates",
     )
     p.add_argument(
         "--seed-base",

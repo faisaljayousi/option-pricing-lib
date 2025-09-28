@@ -114,7 +114,9 @@ def call_greeks(s, k, r, q, sigma, T):
             delta = 0.0
         else:
             delta = 0.5 * disc_q
-        return dict(delta=float(delta), gamma=0.0, vega=0.0, theta=0.0, rho=0.0)
+        return dict(
+            delta=float(delta), gamma=0.0, vega=0.0, theta=0.0, rho=0.0
+        )
 
     d1, d2 = _d1_d2(s, k, r, q, sigma, T)
     disc_q, disc_r = _disc(q, r, T)
@@ -194,7 +196,9 @@ def put_greeks(s, k, r, q, sigma, T):
             )
         else:
             delta = -0.5 * disc_q
-        return dict(delta=float(delta), gamma=0.0, vega=0.0, theta=0.0, rho=0.0)
+        return dict(
+            delta=float(delta), gamma=0.0, vega=0.0, theta=0.0, rho=0.0
+        )
 
     g_c = call_greeks(s, k, r, q, sigma, T)
     d1, d2 = _d1_d2(s, k, r, q, sigma, T)

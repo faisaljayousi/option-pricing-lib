@@ -16,7 +16,6 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
-
 from pricers.bs_vanilla import call_price
 
 
@@ -48,7 +47,9 @@ def main() -> int:
     S0, K = 100.0, 100.0
     r, q, sigma, T = 0.02, 0.0, 0.2, 1.0
     max_N = 200_000
-    Ns = np.array([500, 1_000, 2_000, 5_000, 10_000, 20_000, 50_000, 100_000, 200_000])
+    Ns = np.array(
+        [500, 1_000, 2_000, 5_000, 10_000, 20_000, 50_000, 100_000, 200_000]
+    )
 
     # --- Benchmark (analytic BS) ---
     bs_val = call_price(S0, K, r, q, sigma, T)
@@ -57,7 +58,7 @@ def main() -> int:
     rng = np.random.default_rng(20250925)
     Z = rng.standard_normal(max_N)
 
-    drift = (r - q - 0.5 * sigma ** 2) * T
+    drift = (r - q - 0.5 * sigma**2) * T
     volT = sigma * np.sqrt(T)
     ST = S0 * np.exp(drift + volT * Z)
     X = np.exp(-r * T) * np.maximum(ST - K, 0.0)  # discounted payoffs

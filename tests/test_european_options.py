@@ -1,20 +1,16 @@
-import os
-import sys
-
 import numpy as np
 from pytest import approx
 
-from greeks.bs_mc import delta_call_pathwise
-from pricers.bs_vanilla import call_greeks, call_price, put_greeks, put_price
-from pricers.mc_vanilla import price_european_vanilla_mc
+from oplib.pricers.bs_vanilla import call_price, put_price
+from oplib.pricers.mc_vanilla import price_european_vanilla_mc
 
 
 def test_put_call_parity():
     """
     Validate put–call parity for European options.
 
-    For a  stock with continuous dividend yield q and risk-free rate r, 
-    European call (C) and put (P) prices with the same strike K and 
+    For a  stock with continuous dividend yield q and risk-free rate r,
+    European call (C) and put (P) prices with the same strike K and
     maturity T satisfy:
 
         C - P = S0 * exp(-q T) - K * exp(-r T)
@@ -40,7 +36,9 @@ def test_put_call_parity():
     lhs = c - p
     rhs = s * np.exp(-q * T) - k * np.exp(-r * T)
 
-    assert lhs == approx(rhs, rel=1e-12, abs=1e-12), f"Parity diff={abs(lhs-rhs):.3e}"
+    assert lhs == approx(
+        rhs, rel=1e-12, abs=1e-12
+    ), f"Parity diff={abs(lhs-rhs):.3e}"
 
 
 def test_mc_price_matches_bs_within_3sigma():

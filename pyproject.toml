@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "oplib"
+version = "0.0.0"
+authors = [
+    { name="Faisal Jayousi" }
+]
+requires-python = ">=3.9"
+
+dependencies = [
+    "numpy",
+    "scipy",
+    "pandas",
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py39", "py310", "py311"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+known_first_party = ["oplib"]
+
+[tool.flake8]
+extend-exclude = ["experiments/"]
+
+[tool.setuptools.packages.find]
+where = ["oplib"]

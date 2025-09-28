@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import numpy as np
 from scipy.stats import norm
 
@@ -50,8 +51,8 @@ def geometric_asian_call_bs(
     if m <= 0:
         raise ValueError("m (number of fixings) must be a positive integer.")
 
-    mu_G = np.log(s0) + (r - q - 0.5 * sigma ** 2) * T * (m + 1) / (2.0 * m)
-    v_G = (sigma ** 2) * T * ((m + 1) * (2.0 * m + 1.0)) / (6.0 * m ** 2)
+    mu_G = np.log(s0) + (r - q - 0.5 * sigma**2) * T * (m + 1) / (2.0 * m)
+    v_G = (sigma**2) * T * ((m + 1) * (2.0 * m + 1.0)) / (6.0 * m**2)
 
     sqrt_v = np.sqrt(v_G)
     lnK = np.log(k)
@@ -108,8 +109,8 @@ def geometric_asian_put_bs(
     if m <= 0:
         raise ValueError("m (number of fixings) must be a positive integer.")
 
-    mu_G = np.log(s0) + (r - q - 0.5 * sigma ** 2) * T * (m + 1) / (2.0 * m)
-    v_G = (sigma ** 2) * T * ((m + 1) * (2.0 * m + 1.0)) / (6.0 * m ** 2)
+    mu_G = np.log(s0) + (r - q - 0.5 * sigma**2) * T * (m + 1) / (2.0 * m)
+    v_G = (sigma**2) * T * ((m + 1) * (2.0 * m + 1.0)) / (6.0 * m**2)
 
     sqrt_v = np.sqrt(v_G)
     lnK = np.log(k)

@@ -100,7 +100,9 @@ def generate_gbm_paths(
     if antithetic:
         half = (n_paths + 1) // 2
         Z = rng.standard_normal((half, steps))
-        Z = np.vstack([Z, -Z])[:n_paths]  # keep pairs; odd path remains unpaired
+        Z = np.vstack([Z, -Z])[
+            :n_paths
+        ]  # keep pairs; odd path remains unpaired
     else:
         Z = rng.standard_normal((n_paths, steps))
 
